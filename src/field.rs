@@ -52,6 +52,10 @@ impl FieldElement {
         FieldElement::new(normalized_inverse)
     }
 
+    pub fn negate(&self) -> FieldElement {
+        FieldElement::new(&self.modulus - &self.value)
+    }
+
     fn extended_gcd(&self, a: &BigInt, b: &BigInt) -> (BigInt, BigInt, BigInt) {
         if *b == BigInt::zero() {
             return (a.clone(), BigInt::one(), BigInt::zero());

@@ -69,4 +69,36 @@ impl Polynomial {
         }
         result
     }
+
+    /// Perform Lagrange interpolation to find a polynomial that passes through all given points.
+    pub fn interpolate(points: &[(FieldElement, FieldElement)], _modulus: &BigInt) -> Polynomial {
+        let mut result = Polynomial::new();
+
+        for (i, &(ref x_i, ref y_i)) in points.iter().enumerate() {
+            // Start with y_i
+            let mut term = vec![(0, y_i.clone())];
+
+            // Compute the Lagrange basis polynomial L_i(x)
+            for (j, &(ref x_j, _)) in points.iter().enumerate() {
+                if i != j {
+                    let denom = x_i.sub(x_j).inv();
+                    let negated_x_j = x_j.negate();
+                    let coeff = denom.mul(&negated_x_j);
+
+                    term.push((1, denom)); // L_i(x) = product (x - x_j) / (x_i - x_j)
+
+                    for k in 0..term.len() {
+                        term[k] = (term[k].0, term[k].1.mul(&coeff));
+                    }
+                }
+            }
+
+            // Add L_i(x) * y_i to the result
+            for (index, coeff) in term.iter() {
+                *result.coefficients.entry(*index).or_insert(FieldElement::new(BigInt::zero())) += coeff.clone();
+            }
+        }
+
+        result
+    }
 }
