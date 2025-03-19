@@ -2,18 +2,21 @@
 
 zk-mini is a minimal zero-knowledge proof (ZKP) framework implemented in Rust, designed to demonstrate the basic principles behind zero-knowledge proofs. This project includes custom implementations for circuits and constraint systems and supports simple examples such as addition, multiplication, and Merkle tree proofs.
 
-Features
-Circuit Components: Support for addition, multiplication, and hash gates.
+### Features
+
+## Circuit Components: 
+Support for addition, multiplication, and hash gates.
 Merkle Tree Proofs: Demonstrates how ZKPs can verify membership in a Merkle tree.
 Modular Hashing: Allows custom hash functions to be injected into the circuit.
 Serialization: Saves proofs and circuits to .bin files for inspection.
-Installation
+
+## Installation
 To get started, clone the repository and build the project with Rust’s package manager, cargo.
 
 bash
 Copy code
 # Clone the repository
-git clone https://github.com/yourusername/zk-mini.git
+git clone [https://github.com/luishsr/zk-mini]
 cd zk-mini
 
 # Build the project in release mode
